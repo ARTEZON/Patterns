@@ -1,9 +1,9 @@
 class Student(
+    val id: Int,
     name: String, surname: String, patronym: String,
     phone: String? = null, telegram: String? = null,
     email: String? = null, git: String? = null
 ) {
-    val id = 1; // TODO: ID autoincrement
     var name = name
         get() = field
         set(value) { field = value }
