@@ -38,6 +38,13 @@ fun main() {
             "patronym" to "Kotlin",
             "email" to "kotlinisthebest@meow.com"
         )),
+        //Student(mapOf(
+        //    "id" to 6,
+        //    "surname" to "Чел",
+        //    "name" to "Снеправильным",
+        //    "patronym" to "Номером",
+        //    "phone" to "iPhone 15 Pro Max"
+        //)),
     )
 
     students.forEach { it.show() }
