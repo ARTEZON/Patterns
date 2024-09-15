@@ -1,13 +1,13 @@
 class Student(
     val id: Int,
-    name: String, surname: String, patronym: String,
+    surname: String, name: String, patronym: String,
     phone: String? = null, telegram: String? = null,
     email: String? = null, git: String? = null
 ) {
-    var name = name
+    var surname = surname
         get() = field
         set(value) { field = value }
-    var surname = surname
+    var name = name
         get() = field
         set(value) { field = value }
     var patronym = patronym
@@ -25,4 +25,15 @@ class Student(
     var git = git
         get() = field
         set(value) { field = value }
+
+    override fun toString(): String {
+        var str = "[ID $id] $surname $name $patronym"
+        if (phone != null) str += "\nНомер телефона: $phone"
+        if (telegram != null) str += "\nTelegram: $telegram"
+        if (email != null) str += "\nEmail: $email"
+        if (git != null) str += "\nGit: $git"
+        return "$str\n"
+    }
+
+    fun show() = println(this.toString())
 }
