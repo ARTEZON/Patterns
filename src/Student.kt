@@ -44,6 +44,17 @@ class Student(
         this.git = git
     }
 
+    constructor(hashMap: Map<String, Any>) : this(
+        hashMap["id"]       as  Int,
+        hashMap["surname"]  as  String,
+        hashMap["name"]     as  String,
+        hashMap["patronym"] as  String,
+        hashMap["phone"]    as? String,
+        hashMap["telegram"] as? String,
+        hashMap["email"]    as? String,
+        hashMap["git"]      as? String,
+    )
+
     override fun toString(): String {
         var str = "[ID $id] $surname $name $patronym"
         if (phone != null) str += "\nНомер телефона: $phone"
