@@ -45,6 +45,33 @@ fun main() {
         //    "patronym" to "Номером",
         //    "phone" to "iPhone 15 Pro Max"
         //)),
+        //Student(mapOf(
+        //    "id" to 6,
+        //    "surname" to "Фамилия",
+        //    "name" to "Имя",
+        //    "patronym" to ""
+        //)),
+        //Student(mapOf(
+        //    "id" to 6,
+        //    "surname" to "123",
+        //    "name" to "Имя",
+        //    "patronym" to ""
+        //)),
+        //Student(mapOf(
+        //    "id" to 6,
+        //    "surname" to "Фамилия",
+        //    "name" to "Имя ",
+        //    "patronym" to ""
+        //)),
+        //Student(mapOf(
+        //    "id" to 6,
+        //    "surname" to "Фамилия",
+        //    "name" to "Имя",
+        //    "patronym" to "Отчество",
+        //    "telegram" to "telega",
+        //    "email" to "example.com",
+        //    "git" to "https://github.com/1/2/3"
+        //)),
     )
 
     students.forEach { it.show() }
