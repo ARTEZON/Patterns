@@ -127,4 +127,10 @@ class Student(
         println("У студента $surname $name $patronym контакты ${if (result) "при" else "от"}сутствуют!")
         return result
     }
+
+    fun setContacts(hashMap: Map<String, String?>) {
+        if (hashMap.containsKey("phone")) phone = hashMap["phone"]
+        if (hashMap.containsKey("telegram")) telegram = hashMap["telegram"]
+        if (hashMap.containsKey("email")) email = hashMap["email"]
+    }
 }

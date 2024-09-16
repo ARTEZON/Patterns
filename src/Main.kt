@@ -78,4 +78,7 @@ fun main() {
 
     students.forEach { it.checkGit() }
     students.forEach { it.checkContact() }
+
+    students[1].setContacts(mapOf("telegram" to null, "email" to "test123@example.com"))
+    students[1].show()
 }
