@@ -75,4 +75,7 @@ fun main() {
     )
 
     students.forEach { it.show() }
+
+    students.forEach { it.checkGit() }
+    students.forEach { it.checkContact() }
 }

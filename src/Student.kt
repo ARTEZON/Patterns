@@ -115,4 +115,16 @@ class Student(
     }
 
     fun show() = println(this.toString())
+
+    fun checkGit(): Boolean {
+        val result = git != null
+        println("У студента $surname $name $patronym гит ${if (result) "при" else "от"}сутствует!")
+        return result
+    }
+
+    fun checkContact(): Boolean {
+        val result = phone != null || telegram != null || email != null
+        println("У студента $surname $name $patronym контакты ${if (result) "при" else "от"}сутствуют!")
+        return result
+    }
 }
