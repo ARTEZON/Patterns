@@ -76,8 +76,8 @@ fun main() {
 
     students.forEach { it.show() }
 
-    students.forEach { it.checkGit() }
-    students.forEach { it.checkContact() }
+    students.forEach { println("У данного студента гит ${if (it.checkGit()) "при" else "от"}сутствует!") }
+    students.forEach { println("У данного студента контакты ${if (it.checkContact()) "при" else "от"}сутствуют!") }
 
     students[1].setContacts(mapOf("telegram" to null, "email" to "test123@example.com"))
     students[1].show()

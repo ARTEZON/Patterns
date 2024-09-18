@@ -76,24 +76,6 @@ class Student(
         this.git = git
     }
 
-    constructor(id: Int,
-                surname: String,
-                name: String,
-                patronym: String,
-                phone: String) : this(id, surname, name, patronym) {
-        this.phone = phone
-    }
-
-    constructor(id: Int,
-                surname: String,
-                name: String,
-                patronym: String,
-                email: String,
-                git: String) : this(id, surname, name, patronym) {
-        this.email = email
-        this.git = git
-    }
-
     constructor(hashMap: Map<String, Any>) : this(
         hashMap["id"]       as  Int,
         hashMap["surname"]  as  String,
@@ -116,17 +98,9 @@ class Student(
 
     fun show() = println(this.toString())
 
-    fun checkGit(): Boolean {
-        val result = git != null
-        println("У студента $surname $name $patronym гит ${if (result) "при" else "от"}сутствует!")
-        return result
-    }
+    fun checkGit() = git != null
 
-    fun checkContact(): Boolean {
-        val result = phone != null || telegram != null || email != null
-        println("У студента $surname $name $patronym контакты ${if (result) "при" else "от"}сутствуют!")
-        return result
-    }
+    fun checkContact() = phone != null || telegram != null || email != null
 
     fun setContacts(hashMap: Map<String, String?>) {
         if (hashMap.containsKey("phone")) phone = hashMap["phone"]
