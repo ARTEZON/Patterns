@@ -89,7 +89,7 @@ fun lab2() {
         Student("2|Тестов|Тест|Тестович|+79876543210|@test123|test@example.com|https://github.com/test123"),
         Student("3|Иванов|Василий|Петрович||@vasya228||https://github.com/vasyacodes"),
         Student("4|Who|Are|You||||https://gitlab.com/unknown"),
-        Student("5|I|Like|Kotlin|||kotlinisthebest@meow.com|"),
+        Student("5|I-Like|Kotlin||||kotlinisthebest@meow.com|"),
 
         // Test parsing exceptions
         // Student("|||||||"),
@@ -103,6 +103,8 @@ fun lab2() {
     )
 
     students.forEach { it.show() }
+
+    students.forEach { println(it.getInfo()) }
 }
 
 fun main() {

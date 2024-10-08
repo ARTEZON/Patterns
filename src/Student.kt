@@ -103,6 +103,27 @@ class Student(
         row[7].ifEmpty { null }
     )
 
+    fun getInfo() : String {
+        val contactText = mapOf(
+            "phone" to "по номеру телефона",
+            "telegram" to "через Telegram",
+            "email" to "по электронной почте"
+        )
+        val git = "git${if (this.git != null) ": ${this.git}" else " не указан"}"
+        val contact = getContact().let {
+            if (it != null) "связаться можно ${contactText[it.first]}: ${it.second}" else "контакты не указаны"
+        }
+        return "Студент ${getInitials()}, $git, $contact"
+    }
+
+    private fun getInitials() = "$surname ${name[0]}.${if (patronym.isNotEmpty()) " ${patronym[0]}." else ""}"
+
+    private fun getContact() =
+        if      (phone != null) Pair("phone", phone)
+        else if (telegram != null) Pair("telegram", telegram)
+        else if (email != null) Pair("email", email)
+        else null
+
     override fun toString(): String {
         var str = "[ID $id] $surname $name $patronym"
         if (phone != null) str += "\nНомер телефона: $phone"
