@@ -105,6 +105,18 @@ fun lab2() {
     students.forEach { it.show() }
 
     students.forEach { println(it.getInfo()) }
+
+    val shortStudents = mutableListOf(
+        StudentShort(students[0]),
+        StudentShort(students[1]),
+        StudentShort(students[2]),
+        StudentShort(students[3]),
+        StudentShort(students[4]),
+        StudentShort(6, "Студент Аноним М., git не указан, контакты не указаны"),
+        StudentShort(7, "Студент Студе Н. Т., git: https://github.com/student, связаться можно по номеру телефона: +12345678900")
+    )
+
+    shortStudents.forEach { it.show() }
 }
 
 fun main() {
