@@ -2,8 +2,8 @@ class StudentShort : StudentBase {
     companion object {
         private val surnameWithInitialsRegex = Regex("""^[\p{L}-]+ \p{L}\.( \p{L}\.)?$""")
 
-        fun isValidSurnameWithInitials(value: String) = surnameWithInitialsRegex.matches(value)
-        fun isValidContact(value: String?) = value == null || phoneRegex.matches(value) || telegramRegex.matches(value) || emailRegex.matches(value)
+        private fun isValidSurnameWithInitials(value: String) = surnameWithInitialsRegex.matches(value)
+        private fun isValidContact(value: String?) = value == null || phoneRegex.matches(value) || telegramRegex.matches(value) || emailRegex.matches(value)
     }
 
     override val id: Int
