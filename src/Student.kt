@@ -16,8 +16,17 @@ class Student(
             val file = File(filePath)
             if (!file.exists()) throw FileNotFoundException("Файл '$filePath' не найден")
             return buildList {
+                var currentLine = 1
                 for (line in file.readLines()) {
-                    add(Student(line))
+                    if (line.isNotEmpty()) {
+                        try {
+                            add(Student(line))
+                        }
+                        catch (e: Exception) {
+                            throw Exception("Ошибка при чтении файла '$filePath', строка $currentLine: ${e.message}")
+                        }
+                    }
+                    currentLine++
                 }
             }
         }

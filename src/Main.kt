@@ -119,7 +119,13 @@ fun lab2() {
     shortStudents.forEach { it.show() }
 }
 
+fun lab2FileTest() {
+    val studList = Student.readFromTxt("lab2_input.txt")
+    studList.forEach { println(it.getInfo()) }
+}
+
 fun main() {
-    lab1()
-    lab2()
+    // lab1()
+    // lab2()
+    lab2FileTest()
 }
