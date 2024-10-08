@@ -30,6 +30,15 @@ class Student(
                 }
             }
         }
+
+        fun writeToTxt(filePath: String, students: Iterable<Student>) {
+            val file = File(filePath)
+            file.printWriter().use {
+                for (student in students) {
+                    it.println(student.toStringRow())
+                }
+            }
+        }
     }
 
     var surname = surname
@@ -141,6 +150,10 @@ class Student(
         if (git != null) str += "\nGit: $git"
         return "$str\n"
     }
+
+    private fun toStringRow() = listOf(
+        id.toString(), surname, name, patronym, phone ?: "", telegram ?: "", email ?: "", git ?: ""
+    ).joinToString("|")
 
     fun checkGit() = git != null
 
