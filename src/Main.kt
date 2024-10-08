@@ -1,4 +1,4 @@
-fun main() {
+fun lab1() {
     val students = mutableListOf(
         Student(mapOf(
             "id" to 1,
@@ -81,4 +81,20 @@ fun main() {
 
     students[1].setContacts(mapOf("telegram" to null, "email" to "test123@example.com"))
     students[1].show()
+}
+
+fun lab2() {
+    val students = mutableListOf(
+        Student("1|Эзри|Артём|Александрович||||"),
+        Student("2|Тестов|Тест|Тестович|+79876543210|@test123|test@example.com|https://github.com/test123"),
+        Student("3|Иванов|Василий|Петрович||@vasya228||https://github.com/vasyacodes"),
+        Student("4|Who|Are|You||||https://gitlab.com/unknown"),
+        Student("5|I|Like|Kotlin|||kotlinisthebest@meow.com|")
+    )
+
+    students.forEach { it.show() }
+}
+
+fun main() {
+    lab2()
 }
