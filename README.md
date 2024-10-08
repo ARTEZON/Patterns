@@ -5,6 +5,26 @@
 title: Диаграмма классов
 ---
 classDiagram
+StudentBase <|-- Student
+StudentBase <|-- StudentShort
+    class StudentBase{
+        <<abstract>>
+        +id : Int*
+        +git : String?*
+        #nameRegex : Regex$
+        #phoneRegex : Regex$
+        #telegramRegex : Regex$
+        #emailRegex : Regex$
+        #gitRegex : Regex$
+        +toString() String*
+        +show()
+        #isValidName(value : String) Boolean$
+        #isValidPatronym(value : String) Boolean$
+        #isValidPhoneNumber(value : String) Boolean$
+        #isValidTelegram(value : String) Boolean$
+        #isValidEmail(value : String) Boolean$
+        #isValidGit(value : String) Boolean$
+    }
     class Student{
         +id : Int
         +surname : String
@@ -14,26 +34,27 @@ classDiagram
         +telegram : String?
         +email : String?
         +git : String?
-        -nameRegex : Regex$
-        -phoneRegex : Regex$
-        -telegramRegex : Regex$
-        -emailRegex : Regex$
-        -gitRegex : Regex$
         +Student(id : Int, surname : String, name : String, patronym : String, phone : String? = null, telegram : String? = null, email : String? = null, git : String? = null)
-        +constructor(id : Int, surname: String, name : String, patronym : String, phone : String)
-        +constructor(id : Int, surname: String, name : String, patronym : String, email : String, git : String)
         +constructor(hashMap : Map~String, Any~)
+        +constructor(row : String)
+        -constructor(row: List~String~)
+        +getInfo() String
+        -getInitials() String
+        -getContact() Pair~String, String?~?
         +toString() String
         +show()
         +checkGit() Boolean
         +checkContact() Boolean
         +setContacts(hashMap : Map~String, String?~)
-        +isValidName(value : String) Boolean$
-        +isValidPatronym(value : String) Boolean$
-        +isValidPhoneNumber(value : String) Boolean$
-        +isValidTelegram(value : String) Boolean$
-        +isValidEmail(value : String) Boolean$
-        +isValidGit(value : String) Boolean$
+    }
+    class StudentShort{
+        +id : Int
+        +surnameWithInitials : String
+        +git : String?
+        +contact : String?
+        +constructor(id : Int, info : String)
+        +constructor(student : Student)
+        +toString() String
     }
 ```
 ##
