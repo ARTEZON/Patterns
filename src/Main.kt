@@ -131,8 +131,26 @@ fun lab2FileTest() {
     require(studList2.toString() == studList.toString())
 }
 
+fun lab2part2() {
+    val studList = Student.readFromTxt("lab2_input.txt").map { StudentShort(it) }
+    studList.forEach { it.show() }
+    val dataList = DataListStudentShort(studList)
+    val names = dataList.getNames()
+    println(names)
+    dataList.select(0)
+    dataList.select(2)
+    val dataTable = dataList.getData()
+    for (i in 0..<dataTable.getRowCount()) {
+        for (j in 0..<dataTable.getColCount()) {
+            print("${dataTable[i, j]} ")
+        }
+        println()
+    }
+}
+
 fun main() {
     // lab1()
     // lab2()
-    lab2FileTest()
+    // lab2FileTest()
+    lab2part2()
 }

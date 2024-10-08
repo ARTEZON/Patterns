@@ -1,5 +1,5 @@
 class DataTable(private val array: List<List<Any?>>) {
-    fun get(row: Int, col: Int) = array[row][col]
+    operator fun get(row: Int, col: Int) = array[row][col]
 
     fun getRowCount() = array.size
 
