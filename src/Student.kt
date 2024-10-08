@@ -87,10 +87,13 @@ class Student(
         hashMap["git"]      as? String,
     )
 
-    constructor(row: String) : this(row.split('|'))
+    constructor(row: String) : this(row.split('|').also {
+        if (it.size != 8 || it.any { "\n" in it })
+            throw IllegalArgumentException("Ошибка парсинга: строка имеет неверный формат")
+    })
 
     private constructor(row: List<String>) : this(
-        row[0].toInt(),
+        row[0].toIntOrNull().let { it ?: throw IllegalArgumentException("ID должен быть целым числом") },
         row[1],
         row[2],
         row[3],

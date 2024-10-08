@@ -89,7 +89,17 @@ fun lab2() {
         Student("2|Тестов|Тест|Тестович|+79876543210|@test123|test@example.com|https://github.com/test123"),
         Student("3|Иванов|Василий|Петрович||@vasya228||https://github.com/vasyacodes"),
         Student("4|Who|Are|You||||https://gitlab.com/unknown"),
-        Student("5|I|Like|Kotlin|||kotlinisthebest@meow.com|")
+        Student("5|I|Like|Kotlin|||kotlinisthebest@meow.com|"),
+
+        // Test parsing exceptions
+        // Student("|||||||"),
+        // Student("6|||||||"),
+        // Student("6|Ф|И|О|abc|||"),
+        // Student("123"),
+        // Student(""),
+        // Student("6|Ф|И|О"),
+        // Student("6|Ф|И|О|abc||||"),
+        // Student("6|Ф|И|О||@test\n123||"),
     )
 
     students.forEach { it.show() }
