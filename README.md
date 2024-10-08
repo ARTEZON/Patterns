@@ -7,6 +7,7 @@ title: Диаграмма классов
 classDiagram
 StudentBase <|-- Student
 StudentBase <|-- StudentShort
+DataListStudentShort <|-- DataList
     class StudentBase{
         <<abstract>>
         +id : Int*
@@ -46,6 +47,8 @@ StudentBase <|-- StudentShort
         +checkGit() Boolean
         +checkContact() Boolean
         +setContacts(hashMap : Map~String, String?~)
+        +readFromTxt(filepath : String) List~Student~$
+        +writeToTxt(filepath : String, students : Iterable~Student~)$
     }
     class StudentShort{
         +id : Int
@@ -55,6 +58,27 @@ StudentBase <|-- StudentShort
         +constructor(id : Int, info : String)
         +constructor(student : Student)
         +toString() String
+    }
+    class DataTable{
+        -array : List~List~Any?~~
+        +constructor(array : List~List~Any?~~)
+        +get(row : Int, col : Int) Any?
+        +getRowCount() Int
+        +getColCount() Int
+    }
+    class DataList{
+        <<abstract>>
+        #array : List~Any?~
+        +constructor(array : List~Any?~)
+        +select(number : Int)
+        +getSelected() List~Int~
+        +getNames() List~String~*
+        +getData() DataTable*
+    }
+    class DataListStudentShort{
+        +constructor(studentShortArray : List~StudentShort~)
+        +getNames() List~String~
+        +getData() DataTable
     }
 ```
 ##
