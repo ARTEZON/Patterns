@@ -1,20 +1,18 @@
-class StudentShort {
+class StudentShort : StudentBase {
     companion object {
         private val surnameWithInitialsRegex = Regex("""^[\p{L}-]+ \p{L}\.( \p{L}\.)?$""")
-        private val gitRegex = Regex("""^(https?://)?([A-Za-z0-9]+\.)?[A-Za-z0-9]+\.[A-Za-z0-9]+/[A-Za-z0-9_-]+/?$""")
-        private val phoneRegex = Regex("""^\+?[0-9]{10,15}$""")
-        private val telegramRegex = Regex("""^@\w{5,32}$""")
-        private val emailRegex = Regex("""^[A-Za-z0-9_+-]+(\.[A-Za-z0-9_+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$""")
 
         fun isValidSurnameWithInitials(value: String) = surnameWithInitialsRegex.matches(value)
-        fun isValidGit(value: String?) = value == null || gitRegex.matches(value)
         fun isValidContact(value: String?) = value == null || phoneRegex.matches(value) || telegramRegex.matches(value) || emailRegex.matches(value)
     }
 
-    val id: Int
-    val surnameWithInitials: String
-    val git: String?
-    val contact: String?
+    override val id: Int
+    var surnameWithInitials: String
+        get() = field
+    override var git: String?
+        get() = field
+    var contact: String?
+        get() = field
 
     constructor(id: Int, info: String) {
         this.id = id
@@ -38,6 +36,4 @@ class StudentShort {
         if (contact != null) str += "\nКонтакт: $contact"
         return "$str\n"
     }
-
-    fun show() = println(this.toString())
 }

@@ -1,5 +1,5 @@
 class Student(
-    val id: Int,
+    override val id: Int,
     surname: String,
     name: String,
     patronym: String,
@@ -7,22 +7,7 @@ class Student(
     telegram: String? = null,
     email: String? = null,
     git: String? = null
-) {
-    companion object {
-        private val nameRegex = Regex("""^[\p{L}-]+$""")
-        private val phoneRegex = Regex("""^\+?[0-9]{10,15}$""")
-        private val telegramRegex = Regex("""^@\w{5,32}$""")
-        private val emailRegex = Regex("""^[A-Za-z0-9_+-]+(\.[A-Za-z0-9_+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$""")
-        private val gitRegex = Regex("""^(https?://)?([A-Za-z0-9]+\.)?[A-Za-z0-9]+\.[A-Za-z0-9]+/[A-Za-z0-9_-]+/?$""")
-
-        fun isValidName(value: String) = nameRegex.matches(value)
-        fun isValidPatronym(value: String) = value.isEmpty() || isValidName(value)
-        fun isValidPhoneNumber(value: String?) = value == null || phoneRegex.matches(value)
-        fun isValidTelegram(value: String?) = value == null || telegramRegex.matches(value)
-        fun isValidEmail(value: String?) = value == null || emailRegex.matches(value)
-        fun isValidGit(value: String?) = value == null || gitRegex.matches(value)
-    }
-
+) : StudentBase() {
     var surname = surname
         get() = field
         set(value) {
@@ -59,7 +44,7 @@ class Student(
             if (isValidEmail(value)) field = value
             else throw IllegalArgumentException("Адрес электронной почты имеет недопустимое значение")
         }
-    var git = git
+    override var git = git
         get() = field
         set(value) {
             if (isValidGit(value)) field = value
@@ -132,8 +117,6 @@ class Student(
         if (git != null) str += "\nGit: $git"
         return "$str\n"
     }
-
-    fun show() = println(this.toString())
 
     fun checkGit() = git != null
 

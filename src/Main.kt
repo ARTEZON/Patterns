@@ -120,5 +120,6 @@ fun lab2() {
 }
 
 fun main() {
+    lab1()
     lab2()
 }
