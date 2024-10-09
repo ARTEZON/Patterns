@@ -3,9 +3,9 @@ class DataListStudentShort(studentShortArray: List<StudentShort>) : DataList(stu
 
     override fun getData() = DataTable(buildList {
         var count = 1
-        for (index in getSelected()) {
-            val student = array[index] as StudentShort
-            add(listOf(count++, student.surnameWithInitials, student.git, student.contact))
+        for (obj in array) {
+            val studentShort = obj as StudentShort
+            add(listOf(count++, studentShort.surnameWithInitials, studentShort.git, studentShort.contact))
         }
     })
 }

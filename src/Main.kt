@@ -136,9 +136,10 @@ fun lab2part2() {
     studList.forEach { it.show() }
     val dataList = DataListStudentShort(studList)
     val names = dataList.getNames()
-    println(names)
     dataList.select(0)
     dataList.select(2)
+    println(dataList.getSelected())
+    println(names)
     val dataTable = dataList.getData()
     for (i in 0..<dataTable.getRowCount()) {
         for (j in 0..<dataTable.getColCount()) {
