@@ -1,0 +1,7 @@
+5|I-Like|Kotlin||||kotlinisthebest@meow.com|
+4|Who|Are|You||||https://gitlab.com/unknown
+3|Иванов|Василий|Петрович||@vasya228||https://github.com/vasyacodes
+2|Тестов|Тест|Тестович|+79876543210|@test123|test@example.com|https://github.com/test123
+1|Эзри|Артём|Александрович||||
+7|Вернувшийся|Студент|Хе-хе||||
+8|Студент|Номер|Восемь||||

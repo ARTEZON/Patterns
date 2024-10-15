@@ -1,6 +1,3 @@
-import java.io.File
-import java.io.FileNotFoundException
-
 class Student(
     override val id: Int,
     surname: String,
@@ -11,35 +8,6 @@ class Student(
     email: String? = null,
     git: String? = null
 ) : StudentBase() {
-    companion object {
-        fun readFromTxt(filePath: String) : List<Student> {
-            val file = File(filePath)
-            if (!file.exists()) throw FileNotFoundException("Файл '$filePath' не найден")
-            return buildList {
-                var currentLine = 1
-                for (line in file.readLines()) {
-                    if (line.isNotEmpty()) {
-                        try {
-                            add(Student(line))
-                        }
-                        catch (e: Exception) {
-                            throw Exception("Ошибка при чтении файла '$filePath', строка $currentLine: ${e.message}")
-                        }
-                    }
-                    currentLine++
-                }
-            }
-        }
-
-        fun writeToTxt(filePath: String, students: Iterable<Student>) {
-            val file = File(filePath)
-            file.printWriter().use {
-                for (student in students) {
-                    it.println(student.toStringRow())
-                }
-            }
-        }
-    }
 
     var surname = surname
         get() = field
@@ -151,7 +119,7 @@ class Student(
         return "$str\n"
     }
 
-    private fun toStringRow() = listOf(
+    fun toStringRow() = listOf(
         id.toString(), surname, name, patronym, phone ?: "", telegram ?: "", email ?: "", git ?: ""
     ).joinToString("|")
 
@@ -164,4 +132,6 @@ class Student(
         if (hashMap.containsKey("telegram")) telegram = hashMap["telegram"]
         if (hashMap.containsKey("email")) email = hashMap["email"]
     }
+
+    fun copyWithChangedId(newId: Int) = Student(newId, surname, name, patronym, phone, telegram, email, git)
 }
