@@ -14,13 +14,13 @@ class StudentListTXT {
                 try {
                     val student = Student(line)
                     students[student.id] = student
-                    autoIncrementNextId++
                 } catch (e: Exception) {
                     throw Exception("Ошибка при чтении файла '$filepath', строка $currentLine: ${e.message}")
                 }
             }
             currentLine++
         }
+        autoIncrementNextId = (students.keys.maxOrNull() ?: 0) + 1
     }
 
     fun save(filepath: String) {
