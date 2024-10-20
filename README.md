@@ -5,9 +5,13 @@
 title: Диаграмма классов
 ---
 classDiagram
-StudentBase <|-- Student
-StudentBase <|-- StudentShort
-DataListStudentShort <|-- DataList
+    direction LR
+    StudentBase <|-- Student
+    StudentBase <|-- StudentShort
+    DataListStudentShort <|-- DataList
+    StudentList <|-- StudentListTXT
+    StudentList <|-- StudentListJSON
+    StudentList <|-- StudentListYAML
     class StudentBase{
         <<abstract>>
         +id : Int*
@@ -43,12 +47,11 @@ DataListStudentShort <|-- DataList
         -getInitials() String
         -getContact() Pair~String, String?~?
         +toString() String
-        +show()
+        +toStringRow() String
         +checkGit() Boolean
         +checkContact() Boolean
         +setContacts(hashMap : Map~String, String?~)
-        +readFromTxt(filepath : String) List~Student~$
-        +writeToTxt(filepath : String, students : Iterable~Student~)$
+        +copyWithChangedId(newId : Int) Student
     }
     class StudentShort{
         +id : Int
@@ -79,6 +82,29 @@ DataListStudentShort <|-- DataList
         +constructor(studentShortArray : List~StudentShort~)
         +getNames() List~String~
         +getData() DataTable
+    }
+    class StudentList{
+        #students : MutableMap~Int, Student~
+        #autoIncrementNextId : Int
+        +getStudentById(id : Int) Student
+        +getStudentShortList(k : Int, n : Int) DataListStudentShort
+        +sortByStudentName()
+        +add(student : Student)
+        +replace(id : Int, newStudent : Student)
+        +remove(id : Int)
+        +getStudentShortCount() Int
+    }
+    class StudentListTXT{
+        +load(filepath : String)
+        +save(filepath : String)
+    }
+    class StudentListJSON{
+        +load(filepath : String)
+        +save(filepath : String)
+    }
+    class StudentListYAML{
+        +load(filepath : String)
+        +save(filepath : String)
     }
 ```
 ##
