@@ -158,8 +158,10 @@ fun printDataTable(dataTable: DataTable) {
     }
 }
 
-fun lab3TestGettingStudents() {
-    val students = StudentListTXT()
+fun lab3Test() {
+    // TXT
+
+    val students = StudentList(TXTFormatStrategy())
     students.load("lab2_input.txt")
     println(students.getStudentShortCount())
     for (id in -1..6) {
@@ -175,10 +177,10 @@ fun lab3TestGettingStudents() {
     println("=========================")
     printDataTable(students.getStudentShortList(1, 0).getData())
     println("=========================")
-//    printDataTable(students.getStudentShortList(0, 3).getData())
-//    println("=========================")
-//    printDataTable(students.getStudentShortList(1, -1).getData())
-//    println("=========================")
+    // printDataTable(students.getStudentShortList(0, 3).getData())
+    // println("=========================")
+    // printDataTable(students.getStudentShortList(1, -1).getData())
+    // println("=========================")
     printDataTable(students.getStudentShortList(1, 100).getData())
     println("=========================")
     printDataTable(students.getStudentShortList(2, 100).getData())
@@ -202,7 +204,7 @@ fun lab3TestGettingStudents() {
     students.replace(6, Student(0, "Изменённый", "Студент", "Хе-хе"))
     println(students.getStudentById(6).toStringRow())
     println()
-    students.remove(6)
+    students.remove(5)
     for (id in 1..7) {
         try {
             println(students.getStudentById(id).toStringRow())
@@ -212,6 +214,7 @@ fun lab3TestGettingStudents() {
     }
     println()
     students.add(Student(0, "Вернувшийся", "Студент", "Хе-хе"))
+    students.remove(7)
     students.add(Student(0, "Студент", "Номер", "Восемь"))
     for (id in 1..9) {
         try {
@@ -222,26 +225,13 @@ fun lab3TestGettingStudents() {
     }
     println(students.getStudentShortCount())
     students.save("lab3_output.txt")
-}
 
-fun lab3TestJSON() {
-    // val jsonObject = JsonObject(mapOf("id" to JsonPrimitive(1), "surname" to JsonPrimitive("Эзри")))
+    // JSON
 
-    val students = StudentListJSON()
-    students.add(Student(123, "Новый", "Студент", "Хе-хе"))
-    students.remove(1)
-    students.add(Student(mapOf("id" to 100, "surname" to "Эзри", "name" to "Артём", "patronym" to "Александрович")))
-    students.add(Student(mapOf("id" to 101, "surname" to "Тестов", "name" to "Тест", "patronym" to "Тестович",
-        "phone" to "+79876543210", "telegram" to "@test123", "email" to "test@example.com",
-        "git" to "https://github.com/test123")))
-    students.add(Student(mapOf("id" to 102, "surname" to "Фамилия", "name" to "Имя", "patronym" to "",
-        "telegram" to "@familiyaimya", "git" to "https://github.com/familiyaimya")))
-    students.add(Student(123, "Новый", "Студент", "Хе-хе"))
-    students.remove(5)
-    students.add(Student(123, "Новый", "Студент", "Хе-хе"))
+    students.formatStrategy = JSONFormatStrategy()
     students.save("lab3_output.json")
 
-    val students2 = StudentListJSON()
+    val students2 = StudentList(JSONFormatStrategy())
     students2.load("lab3_output.json")
     println(students.getStudentShortCount())
     for (id in -1..7) {
@@ -251,26 +241,13 @@ fun lab3TestJSON() {
             println(e.message)
         }
     }
-}
 
-fun lab3TestYAML() {
-    // val jsonObject = JsonObject(mapOf("id" to JsonPrimitive(1), "surname" to JsonPrimitive("Эзри")))
+    // YAML
 
-    val students = StudentListYAML()
-    students.add(Student(123, "Новый", "Студент", "Хе-хе"))
-    students.remove(1)
-    students.add(Student(mapOf("id" to 100, "surname" to "Эзри", "name" to "Артём", "patronym" to "Александрович")))
-    students.add(Student(mapOf("id" to 101, "surname" to "Тестов", "name" to "Тест", "patronym" to "Тестович",
-        "phone" to "+79876543210", "telegram" to "@test123", "email" to "test@example.com",
-        "git" to "https://github.com/test123")))
-    students.add(Student(mapOf("id" to 102, "surname" to "Фамилия", "name" to "Имя", "patronym" to "",
-        "telegram" to "@familiyaimya", "git" to "https://github.com/familiyaimya")))
-    students.add(Student(123, "Новый", "Студент", "Хе-хе"))
-    students.remove(5)
-    students.add(Student(123, "Новый", "Студент", "Хе-хе"))
+    students.formatStrategy = YAMLFormatStrategy()
     students.save("lab3_output.yaml")
 
-    val students2 = StudentListYAML()
+    students2.formatStrategy = YAMLFormatStrategy()
     students2.load("lab3_output.yaml")
     println(students.getStudentShortCount())
     for (id in -1..7) {
@@ -283,7 +260,5 @@ fun lab3TestYAML() {
 }
 
 fun main() {
-    // lab3TestGettingStudents()
-    // lab3TestJSON()
-    lab3TestYAML()
+    lab3Test()
 }

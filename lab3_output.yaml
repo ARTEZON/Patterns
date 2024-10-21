@@ -1,8 +1,15 @@
-- id: 2
-  surname: "Эзри"
-  name: "Артём"
-  patronym: "Александрович"
+- id: 4
+  surname: "Who"
+  name: "Are"
+  patronym: "You"
+  git: "https://gitlab.com/unknown"
 - id: 3
+  surname: "Иванов"
+  name: "Василий"
+  patronym: "Петрович"
+  telegram: "@vasya228"
+  git: "https://github.com/vasyacodes"
+- id: 2
   surname: "Тестов"
   name: "Тест"
   patronym: "Тестович"
@@ -10,13 +17,15 @@
   telegram: "@test123"
   email: "test@example.com"
   git: "https://github.com/test123"
-- id: 4
-  surname: "Фамилия"
-  name: "Имя"
-  patronym: ""
-  telegram: "@familiyaimya"
-  git: "https://github.com/familiyaimya"
+- id: 1
+  surname: "Эзри"
+  name: "Артём"
+  patronym: "Александрович"
 - id: 6
-  surname: "Новый"
+  surname: "Изменённый"
   name: "Студент"
   patronym: "Хе-хе"
+- id: 8
+  surname: "Студент"
+  name: "Номер"
+  patronym: "Восемь"
