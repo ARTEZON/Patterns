@@ -9,9 +9,10 @@ classDiagram
     StudentBase <|-- Student
     StudentBase <|-- StudentShort
     DataListStudentShort <|-- DataList
-    StudentList <|-- StudentListTXT
-    StudentList <|-- StudentListJSON
-    StudentList <|-- StudentListYAML
+    StudentList o-- FormatStrategy
+    FormatStrategy <|.. TXTFormatStrategy
+    FormatStrategy <|.. JSONFormatStrategy
+    FormatStrategy <|.. YAMLFormatStrategy
     class StudentBase{
         <<abstract>>
         +id : Int*
@@ -86,6 +87,10 @@ classDiagram
     class StudentList{
         #students : MutableMap~Int, Student~
         #autoIncrementNextId : Int
+        +formatStrategy : FormatStrategy
+        +constructor(formatStrategy : FormatStrategy)
+        +load(filepath : String)
+        +save(filepath : String)
         +getStudentById(id : Int) Student
         +getStudentShortList(k : Int, n : Int) DataListStudentShort
         +sortByStudentName()
@@ -94,17 +99,34 @@ classDiagram
         +remove(id : Int)
         +getStudentShortCount() Int
     }
-    class StudentListTXT{
-        +load(filepath : String)
-        +save(filepath : String)
+    class StudentSerializable{
+        <<data class>>
+        +id : Int
+        +surname : String
+        +name : String
+        +patronym : String
+        +phone : String?
+        +telegram : String?
+        +email : String?
+        +git : String?
+        +constructor(student : Student)
     }
-    class StudentListJSON{
-        +load(filepath : String)
-        +save(filepath : String)
+    class FormatStrategy{
+        <<interface>>
+        +load(file : File) MutableMap~Int, Student~
+        +save(file : File, students : MutableMap~Int, Student~)
     }
-    class StudentListYAML{
-        +load(filepath : String)
-        +save(filepath : String)
+    class TXTFormatStrategy{
+        +load(file : File) MutableMap~Int, Student~
+        +save(file : File, students : MutableMap~Int, Student~)
+    }
+    class JSONFormatStrategy{
+        +load(file : File) MutableMap~Int, Student~
+        +save(file : File, students : MutableMap~Int, Student~)
+    }
+    class YAMLFormatStrategy{
+        +load(file : File) MutableMap~Int, Student~
+        +save(file : File, students : MutableMap~Int, Student~)
     }
 ```
 ##
