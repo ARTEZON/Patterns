@@ -1,3 +1,5 @@
+import java.sql.DriverManager
+
 //fun lab1() {
 //    val students = mutableListOf(
 //        Student(mapOf(
@@ -149,116 +151,134 @@
 //    }
 //}
 
-fun printDataTable(dataTable: DataTable) {
-    for (i in 0..<dataTable.getRowCount()) {
-        for (j in 0..<dataTable.getColCount()) {
-            print("${dataTable[i, j]} ")
-        }
-        println()
-    }
-}
+//fun printDataTable(dataTable: DataTable) {
+//    for (i in 0..<dataTable.getRowCount()) {
+//        for (j in 0..<dataTable.getColCount()) {
+//            print("${dataTable[i, j]} ")
+//        }
+//        println()
+//    }
+//}
+//
+//fun lab3Test() {
+//    // TXT
+//
+//    val students = StudentList(TXTFormatStrategy())
+//    students.load("lab2_input.txt")
+//    println(students.getStudentShortCount())
+//    for (id in -1..6) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
+//    println()
+//
+//    printDataTable(students.getStudentShortList(1, 3).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(1, 0).getData())
+//    println("=========================")
+//    // printDataTable(students.getStudentShortList(0, 3).getData())
+//    // println("=========================")
+//    // printDataTable(students.getStudentShortList(1, -1).getData())
+//    // println("=========================")
+//    printDataTable(students.getStudentShortList(1, 100).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(2, 100).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(3, 1).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(2, 3).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(1, 5).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(1, 6).getData())
+//    println()
+//
+//    students.sortByStudentName()
+//    printDataTable(students.getStudentShortList(1, 5).getData())
+//    println()
+//
+//    students.add(Student(0, "Новый", "Студент", "Хе-хе"))
+//    printDataTable(students.getStudentShortList(1, 100).getData())
+//    println(students.getStudentById(6).toStringRow())
+//    students.replace(6, Student(0, "Изменённый", "Студент", "Хе-хе"))
+//    println(students.getStudentById(6).toStringRow())
+//    println()
+//    students.remove(5)
+//    for (id in 1..7) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
+//    println()
+//    students.add(Student(0, "Вернувшийся", "Студент", "Хе-хе"))
+//    students.remove(7)
+//    students.add(Student(0, "Студент", "Номер", "Восемь"))
+//    for (id in 1..9) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
+//    println(students.getStudentShortCount())
+//    students.save("lab3_output.txt")
+//
+//    // JSON
+//
+//    students.formatStrategy = JSONFormatStrategy()
+//    students.save("lab3_output.json")
+//
+//    val students2 = StudentList(JSONFormatStrategy())
+//    students2.load("lab3_output.json")
+//    println(students.getStudentShortCount())
+//    for (id in -1..7) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
+//
+//    // YAML
+//
+//    students.formatStrategy = YAMLFormatStrategy()
+//    students.save("lab3_output.yaml")
+//
+//    students2.formatStrategy = YAMLFormatStrategy()
+//    students2.load("lab3_output.yaml")
+//    println(students.getStudentShortCount())
+//    for (id in -1..7) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
+//}
 
-fun lab3Test() {
-    // TXT
-
-    val students = StudentList(TXTFormatStrategy())
-    students.load("lab2_input.txt")
-    println(students.getStudentShortCount())
-    for (id in -1..6) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
-    }
-    println()
-
-    printDataTable(students.getStudentShortList(1, 3).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(1, 0).getData())
-    println("=========================")
-    // printDataTable(students.getStudentShortList(0, 3).getData())
-    // println("=========================")
-    // printDataTable(students.getStudentShortList(1, -1).getData())
-    // println("=========================")
-    printDataTable(students.getStudentShortList(1, 100).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(2, 100).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(3, 1).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(2, 3).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(1, 5).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(1, 6).getData())
-    println()
-
-    students.sortByStudentName()
-    printDataTable(students.getStudentShortList(1, 5).getData())
-    println()
-
-    students.add(Student(0, "Новый", "Студент", "Хе-хе"))
-    printDataTable(students.getStudentShortList(1, 100).getData())
-    println(students.getStudentById(6).toStringRow())
-    students.replace(6, Student(0, "Изменённый", "Студент", "Хе-хе"))
-    println(students.getStudentById(6).toStringRow())
-    println()
-    students.remove(5)
-    for (id in 1..7) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
-    }
-    println()
-    students.add(Student(0, "Вернувшийся", "Студент", "Хе-хе"))
-    students.remove(7)
-    students.add(Student(0, "Студент", "Номер", "Восемь"))
-    for (id in 1..9) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
-    }
-    println(students.getStudentShortCount())
-    students.save("lab3_output.txt")
-
-    // JSON
-
-    students.formatStrategy = JSONFormatStrategy()
-    students.save("lab3_output.json")
-
-    val students2 = StudentList(JSONFormatStrategy())
-    students2.load("lab3_output.json")
-    println(students.getStudentShortCount())
-    for (id in -1..7) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
-    }
-
-    // YAML
-
-    students.formatStrategy = YAMLFormatStrategy()
-    students.save("lab3_output.yaml")
-
-    students2.formatStrategy = YAMLFormatStrategy()
-    students2.load("lab3_output.yaml")
-    println(students.getStudentShortCount())
-    for (id in -1..7) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
+fun testSQLiteConnection() {
+    val conn = DriverManager.getConnection("jdbc:sqlite:data/students.db")
+    val stmt = conn.createStatement()
+    val resultSet = stmt.executeQuery("SELECT * FROM Student")
+    while (resultSet.next()) {
+        println(listOf(
+            resultSet.getInt("id"),
+            resultSet.getString("surname"),
+            resultSet.getString("name"),
+            resultSet.getString("patronym"),
+            resultSet.getString("phone"),
+            resultSet.getString("telegram"),
+            resultSet.getString("email"),
+            resultSet.getString("git")
+        ).joinToString())
     }
 }
 
 fun main() {
-    lab3Test()
+    testSQLiteConnection()
 }
