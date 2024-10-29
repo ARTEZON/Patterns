@@ -1,9 +1,8 @@
 <h2 align="center">A repo for my university homework on software design patterns<br><br></h2>
 
+<p align="center">Диаграмма классов</p>
+
 ```mermaid
----
-title: Диаграмма классов
----
 classDiagram
     direction LR
     StudentBase <|-- Student
@@ -129,6 +128,24 @@ classDiagram
         +save(file : File, students : MutableMap~Int, Student~)
     }
 ```
+
+##
+<p align="center">ER-диаграмма базы данных</p>
+
+```mermaid
+erDiagram 
+    Student {
+        INTEGER id PK
+        TEXT surname
+        TEXT name
+        TEXT patronym
+        TEXT phone
+        TEXT telegram
+        TEXT email
+        TEXT git
+    }
+```
+
 ##
 <h3><br></h3>
 <p align="center"><a href="https://youtu.be/bUh2W3jjapA"><img src="https://github.com/user-attachments/assets/423df8af-babc-4bf4-af76-1e2d7c0ab0e9" height=360 alt="ATARAXIA - Patterns"></img></a></p>
