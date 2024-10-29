@@ -1,0 +1,11 @@
+CREATE TABLE "Student" (
+	"id"	INTEGER NOT NULL,
+	"surname"	TEXT NOT NULL CHECK("surname" != ""),
+	"name"	TEXT NOT NULL CHECK("name" != ""),
+	"patronym"	TEXT NOT NULL,
+	"phone"	TEXT,
+	"telegram"	TEXT,
+	"email"	TEXT,
+	"git"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
