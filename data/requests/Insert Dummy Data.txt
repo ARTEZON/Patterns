@@ -1,0 +1,20 @@
+INSERT INTO "Student" ("surname", "name", "patronym")
+VALUES ('Эзри', 'Артём', 'Александрович');
+
+INSERT INTO "Student" ("surname", "name", "patronym", "phone", "telegram", "email", "git")
+VALUES ('Тестов', 'Тест', 'Тестович', '+79876543210', '@test123', 'test@example.com', 'https://github.com/test123');
+
+INSERT INTO "Student" ("surname", "name", "patronym", "telegram", "git")
+VALUES ('Иванов', 'Василий', 'Петрович', '@vasya228', 'https://github.com/vasyacodes');
+
+INSERT INTO "Student" ("surname", "name", "patronym", "git")
+VALUES ('Who', 'Are', 'You', 'https://gitlab.com/unknown');
+
+INSERT INTO "Student" ("surname", "name", "phone")
+VALUES ('Новый', 'Студент', '+71234567890');
+
+INSERT INTO "Student" ("surname", "name", "patronym", "telegram")
+VALUES ('Фамилия', 'Имя', 'Отчество', '@imyafamiliya');
+
+INSERT INTO "Student" ("surname", "name", "email")
+VALUES ('Test', 'Account', 'username@domain.org');
