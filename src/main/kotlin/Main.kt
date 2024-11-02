@@ -1,5 +1,3 @@
-import java.sql.DriverManager
-
 //fun lab1() {
 //    val students = mutableListOf(
 //        Student(mapOf(
@@ -151,15 +149,15 @@ import java.sql.DriverManager
 //    }
 //}
 
-//fun printDataTable(dataTable: DataTable) {
-//    for (i in 0..<dataTable.getRowCount()) {
-//        for (j in 0..<dataTable.getColCount()) {
-//            print("${dataTable[i, j]} ")
-//        }
-//        println()
-//    }
-//}
-//
+fun printDataTable(dataTable: DataTable) {
+    for (i in 0..<dataTable.getRowCount()) {
+        for (j in 0..<dataTable.getColCount()) {
+            print("${dataTable[i, j]} ")
+        }
+        println()
+    }
+}
+
 //fun lab3Test() {
 //    // TXT
 //
@@ -261,24 +259,27 @@ import java.sql.DriverManager
 //    }
 //}
 
-fun testSQLiteConnection() {
-    val conn = DriverManager.getConnection("jdbc:sqlite:data/students.db")
-    val stmt = conn.createStatement()
-    val resultSet = stmt.executeQuery("SELECT * FROM Student")
-    while (resultSet.next()) {
-        println(listOf(
-            resultSet.getInt("id"),
-            resultSet.getString("surname"),
-            resultSet.getString("name"),
-            resultSet.getString("patronym"),
-            resultSet.getString("phone"),
-            resultSet.getString("telegram"),
-            resultSet.getString("email"),
-            resultSet.getString("git")
-        ).joinToString())
-    }
+fun testStudentListDB() {
+    val students = StudentListDB("jdbc:sqlite:data/students.db")
+
+//    println(students.getStudentById(1)?.toStringRow())
+//    println(students.getStudentById(0))
+//    println()
+//    printDataTable(students.getStudentShortList(3, 2).getData())
+//    println()
+//    printDataTable(students.getStudentShortList(2, 4).getData())
+//    println()
+//    println(students.getStudentShortCount())
+//    students.add(Student(0, "Новый", "Студент", "Хе-хе"))
+//    println(students.getStudentShortCount())
+//    println(students.getStudentById(8)?.toStringRow())
+//    println(students.getStudentById(9)?.toStringRow())
+//    students.remove(7)
+//    println(students.remove(5))
+//    students.add(Student(0, "Ещё", "Студент", "", email = "123@456.789"))
+//    students.replace(8, Student(0, "Изменённый", "Студент", "", telegram = "@skullemoji"))
 }
 
 fun main() {
-    testSQLiteConnection()
+    testStudentListDB()
 }
