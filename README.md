@@ -12,6 +12,11 @@ classDiagram
     FormatStrategy <|.. TXTFormatStrategy
     FormatStrategy <|.. JSONFormatStrategy
     FormatStrategy <|.. YAMLFormatStrategy
+    StudentList ..> Student
+    StudentList ..> StudentSerializable
+    StudentSerializable ..> Student
+    StudentListDB ..> Student
+    StudentListDB ..> Database
     class StudentBase{
         <<abstract>>
         +id : Int*
@@ -126,6 +131,32 @@ classDiagram
     class YAMLFormatStrategy{
         +load(file : File) MutableMap~Int, Student~
         +save(file : File, students : MutableMap~Int, Student~)
+    }
+    class StudentListDB {
+        +getStudentById(id : Int) Student?
+        +getStudentShortList(k : Int, n : Int) DataListStudentShort
+        +add(student : Student)
+        +replace(id : Int, newStudent : Student)
+        +remove(id : Int) Boolean
+        +getStudentShortCount() Int
+    }
+    class Database {
+        <<object>>
+        -conn : Connection
+        +connect()
+        +disconnect()
+        +isConnected() Boolean
+        +checkConnection()
+        +executeQuery(sql : String) ResultSet
+        +executeQuery(sql : String, statementFunction : (PreparedStatement) -> Unit) ResultSet
+        +executeUpdate(sql : String) Int
+        +executeUpdate(sql : String, statementFunction : (PreparedStatement) -> Unit) Int
+    }
+    class Config {
+        <<object>>
+        +DB_URL : String
+        +DB_USER : String
+        +DB_PASS : String
     }
 ```
 
