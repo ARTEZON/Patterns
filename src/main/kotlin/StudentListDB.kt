@@ -35,11 +35,11 @@ class StudentListDB {
         return DataListStudentShort(studentsSlice)
     }
 
-    fun add(student: Student) {
+    fun add(student: Student) : Boolean {
         val sql = "INSERT INTO Student" +
                   "(\"surname\", \"name\", \"patronym\", \"phone\", \"telegram\", \"email\", \"git\")" +
                   "VALUES (?, ?, ?, ?, ?, ?, ?)"
-        Database.executeUpdate(sql) {
+        return Database.executeUpdate(sql) {
             it.setString(1, student.surname)
             it.setString(2, student.name)
             it.setString(3, student.patronym)
@@ -47,14 +47,14 @@ class StudentListDB {
             it.setString(5, student.telegram)
             it.setString(6, student.email)
             it.setString(7, student.git)
-        }
+        } > 0
     }
 
-    fun replace(id: Int, newStudent: Student) {
+    fun replace(id: Int, newStudent: Student) : Boolean {
         val sql = "UPDATE Student SET \"surname\" = ?, \"name\" = ?, \"patronym\" = ?," +
                   "\"phone\" = ?, \"telegram\" = ?, \"email\" = ?, \"git\" = ?" +
                   "WHERE id = ?"
-        Database.executeUpdate(sql) {
+        return Database.executeUpdate(sql) {
             it.setString(1, newStudent.surname)
             it.setString(2, newStudent.name)
             it.setString(3, newStudent.patronym)
@@ -63,7 +63,7 @@ class StudentListDB {
             it.setString(6, newStudent.email)
             it.setString(7, newStudent.git)
             it.setInt(8, id)
-        }
+        } > 0
     }
 
     fun remove(id: Int) : Boolean {
