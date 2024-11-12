@@ -161,7 +161,7 @@ fun printDataTable(dataTable: DataTable) {
 //fun lab3Test() {
 //    // TXT
 //
-//    val students = StudentList(TXTFormatStrategy())
+//    val students = StudentListFile(TXTFormatStrategy())
 //    students.load("lab2_input.txt")
 //    println(students.getStudentShortCount())
 //    for (id in -1..6) {
@@ -231,7 +231,7 @@ fun printDataTable(dataTable: DataTable) {
 //    students.formatStrategy = JSONFormatStrategy()
 //    students.save("lab3_output.json")
 //
-//    val students2 = StudentList(JSONFormatStrategy())
+//    val students2 = StudentListFile(JSONFormatStrategy())
 //    students2.load("lab3_output.json")
 //    println(students.getStudentShortCount())
 //    for (id in -1..7) {

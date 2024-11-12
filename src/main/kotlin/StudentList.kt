@@ -85,7 +85,7 @@ class YAMLFormatStrategy : FormatStrategy {
     }
 }
 
-class StudentList(var formatStrategy: FormatStrategy) {
+class StudentListFile(var formatStrategy: FormatStrategy) {
     private var students = mutableMapOf<Int, Student>()
     private var autoIncrementNextId = 1
 

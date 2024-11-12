@@ -8,12 +8,12 @@ classDiagram
     StudentBase <|-- Student
     StudentBase <|-- StudentShort
     DataListStudentShort <|-- DataList
-    StudentList o-- FormatStrategy
+    StudentListFile o-- FormatStrategy
     FormatStrategy <|.. TXTFormatStrategy
     FormatStrategy <|.. JSONFormatStrategy
     FormatStrategy <|.. YAMLFormatStrategy
-    StudentList ..> Student
-    StudentList ..> StudentSerializable
+    StudentListFile ..> Student
+    StudentListFile ..> StudentSerializable
     StudentSerializable ..> Student
     StudentListDB ..> Student
     StudentListDB ..> Database
@@ -88,7 +88,7 @@ classDiagram
         +getNames() List~String~
         +getData() DataTable
     }
-    class StudentList{
+    class StudentListFile{
         #students : MutableMap~Int, Student~
         #autoIncrementNextId : Int
         +formatStrategy : FormatStrategy
