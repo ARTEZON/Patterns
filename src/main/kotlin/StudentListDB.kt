@@ -1,5 +1,5 @@
-class StudentListDB {
-    fun getStudentById(id: Int) : Student? {
+class StudentListDB : StudentListInterface {
+    override fun getStudentById(id: Int) : Student? {
         val resultSet = Database.executeQuery("SELECT * FROM Student WHERE \"id\" = $id")
         return if (resultSet.next()) Student(mapOf(
             "id" to resultSet.getInt("id"),
@@ -13,7 +13,7 @@ class StudentListDB {
         )) else null
     }
 
-    fun getStudentShortList(k: Int, n: Int) : DataListStudentShort {
+    override fun getStudentShortList(k: Int, n: Int) : DataListStudentShort {
         if (k < 1) throw IllegalArgumentException("Значение k должно быть больше или равно 1")
         if (n < 0) throw IllegalArgumentException("Значение n не должно быть отрицательным")
         val firstElem = (k - 1) * n
@@ -35,7 +35,7 @@ class StudentListDB {
         return DataListStudentShort(studentsSlice)
     }
 
-    fun add(student: Student) : Boolean {
+    override fun add(student: Student) : Boolean {
         val sql = "INSERT INTO Student" +
                   "(\"surname\", \"name\", \"patronym\", \"phone\", \"telegram\", \"email\", \"git\")" +
                   "VALUES (?, ?, ?, ?, ?, ?, ?)"
@@ -50,7 +50,7 @@ class StudentListDB {
         } > 0
     }
 
-    fun replace(id: Int, newStudent: Student) : Boolean {
+    override fun replace(id: Int, newStudent: Student) : Boolean {
         val sql = "UPDATE Student SET \"surname\" = ?, \"name\" = ?, \"patronym\" = ?," +
                   "\"phone\" = ?, \"telegram\" = ?, \"email\" = ?, \"git\" = ?" +
                   "WHERE id = ?"
@@ -66,12 +66,12 @@ class StudentListDB {
         } > 0
     }
 
-    fun remove(id: Int) : Boolean {
+    override fun remove(id: Int) : Boolean {
         val sql = "DELETE FROM Student WHERE \"id\" = ?"
         return Database.executeUpdate(sql) { it.setInt(1, id) } > 0
     }
 
-    fun getStudentShortCount() : Int {
+    override fun getStudentShortCount() : Int {
         val resultSet = Database.executeQuery("SELECT count(*) AS cnt FROM Student")
         resultSet.next()
         return resultSet.getInt(1)
