@@ -17,6 +17,10 @@ classDiagram
     StudentSerializable ..> Student
     StudentListDB ..> Student
     StudentListDB ..> Database
+    StudentListDB ..|> StudentListInterface
+    StudentListFileAdapter ..|> StudentListInterface
+    StudentListFileAdapter ..> StudentListFile
+    StudentList o-- StudentListInterface
     class StudentBase{
         <<abstract>>
         +id : Int*
@@ -135,8 +139,8 @@ classDiagram
     class StudentListDB {
         +getStudentById(id : Int) Student?
         +getStudentShortList(k : Int, n : Int) DataListStudentShort
-        +add(student : Student)
-        +replace(id : Int, newStudent : Student)
+        +add(student : Student) Boolean
+        +replace(id : Int, newStudent : Student) Boolean
         +remove(id : Int) Boolean
         +getStudentShortCount() Int
     }
@@ -157,6 +161,35 @@ classDiagram
         +DB_URL : String
         +DB_USER : String
         +DB_PASS : String
+    }
+    class StudentListInterface {
+        <<interface>>
+        +getStudentById(id : Int) Student?
+        +getStudentShortList(k : Int, n : Int) DataListStudentShort
+        +add(student : Student) Boolean
+        +replace(id : Int, newStudent : Student) Boolean
+        +remove(id : Int) Boolean
+        +getStudentShortCount() Int
+    }
+    class StudentListFileAdapter {
+        +studentListFileObject : StudentListFile
+        +constructor(studentListFileObject : StudentListFile)
+        +getStudentById(id : Int) Student?
+        +getStudentShortList(k : Int, n : Int) DataListStudentShort
+        +add(student : Student) Boolean
+        +replace(id : Int, newStudent : Student) Boolean
+        +remove(id : Int) Boolean
+        +getStudentShortCount() Int
+    }
+    class StudentList {
+        +dataSource : StudentListInterface
+        +constructor(dataSource : StudentListInterface)
+        +getStudentById(id : Int) Student?
+        +getStudentShortList(k : Int, n : Int) DataListStudentShort
+        +add(student : Student) Boolean
+        +replace(id : Int, newStudent : Student) Boolean
+        +remove(id : Int) Boolean
+        +getStudentShortCount() Int
     }
 ```
 
