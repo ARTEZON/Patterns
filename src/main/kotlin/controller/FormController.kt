@@ -5,7 +5,7 @@ import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
 
-class FormController {
+class FormController : ControllerInterface {
     @FXML
     lateinit var labelTop: Label
     @FXML

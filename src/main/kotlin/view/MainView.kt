@@ -8,7 +8,6 @@ import javafx.scene.control.TableColumn
 import javafx.scene.control.cell.PropertyValueFactory
 import kotlin.math.ceil
 
-
 class MainView(private val controller: MainWindowController) : ViewInterface {
     override fun setTableParams(columnNames: List<String>, wholeEntitiesCount: Int, pageNumber: Int, pageSize: Int) {
         val table = controller.studentsTable

@@ -1,4 +1,3 @@
 package controller
 
-interface ControllerInterface {
-}
+interface ControllerInterface

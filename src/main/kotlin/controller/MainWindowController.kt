@@ -7,12 +7,32 @@ import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.stage.Modality
 import javafx.stage.Stage
+import model.ModelInterface
+import model.StudentShortModel
 import model.TableRow
+import view.MainView
+import view.ViewInterface
 
+class MainWindowController : ControllerInterface {
+    private val view: ViewInterface = MainView(this)
+    private val model: ModelInterface = StudentShortModel(listOf(view))
+    private var page: Int = 1
+    private var pageSize: Int = 15
 
-class MainWindowController {
-    lateinit var studentListController: StudentListController
-    var selectedIds = listOf<Int>()
+    private fun refreshData() {
+        try {
+            model.refreshData(page, pageSize)
+        }
+        catch (ex: Exception) {
+            val errorAlert = Alert(Alert.AlertType.ERROR)
+            errorAlert.title = "Ошибка подключения к базе данных"
+            errorAlert.headerText = "При подключении к базе данных возникла ошибка:"
+            errorAlert.contentText = ex.localizedMessage
+            errorAlert.showAndWait()
+        }
+    }
+
+    private var selectedIds = listOf<Int>()
 
     @FXML
     private lateinit var surnameField: TextField
@@ -99,16 +119,16 @@ class MainWindowController {
         rowsPerPageField.text = "15"
         rowsPerPageField.setOnKeyTyped {
             if (!rowsPerPageField.text.matches(Regex("\\d*"))) {
-                rowsPerPageField.text = (rowsPerPageField.text.replace(Regex("[^\\d]"), ""));
+                rowsPerPageField.text = (rowsPerPageField.text.replace(Regex("\\D"), ""))
             }
-            studentListController.page = 1
-            studentListController.pageSize = rowsPerPageField.text.ifEmpty { "0" }.toInt()
-            studentListController.refreshData()
+            page = 1
+            pageSize = rowsPerPageField.text.ifEmpty { "0" }.toInt()
+            refreshData()
         }
 
-        studentsTable.selectionModel.selectedItemProperty().addListener {obs, oldSelection, newSelection ->
+        studentsTable.selectionModel.selectedItemProperty().addListener { _, _, _ ->
             delBtn.isDisable = studentsTable.selectionModel.selectedIndices.size == 0
-            val ids = studentListController.model.getIdsOfCurrentPageRows()
+            val ids = model.getIdsOfCurrentPageRows()
             val selectedIndices = studentsTable.selectionModel.selectedIndices
             selectedIds = buildList {
                 for (i in selectedIndices) {
@@ -117,6 +137,8 @@ class MainWindowController {
             }
             editBtn.isDisable = selectedIds.size != 1
         }
+
+        refreshData()
     }
 
     @FXML
@@ -172,7 +194,7 @@ class MainWindowController {
 
     @FXML
     private fun addStudentButton() {
-        showForm({}, {formController -> studentListController.model.addStudent(
+        showForm({}, {formController -> model.addStudent(
             formController.surnameField.text,
             formController.nameField.text,
             formController.patronymField.text,
@@ -186,7 +208,7 @@ class MainWindowController {
     @FXML
     private fun editStudentButton() {
         showForm({
-            val studentForEdit = studentListController.model.getStudentById(selectedIds[0])
+            val studentForEdit = model.getStudentById(selectedIds[0])
             it.surnameField.text = studentForEdit?.surname ?: ""
             it.nameField.text = studentForEdit?.name ?: ""
             it.patronymField.text = studentForEdit?.patronym ?: ""
@@ -195,7 +217,7 @@ class MainWindowController {
             it.phoneField.text = studentForEdit?.phone ?: ""
             it.telegramField.text = studentForEdit?.telegram ?: ""
             it.submitButton.text = "Сохранить"
-        }, {formController -> studentListController.model.editStudent(
+        }, {formController -> model.editStudent(
             selectedIds[0],
             formController.surnameField.text,
             formController.nameField.text,
@@ -209,23 +231,23 @@ class MainWindowController {
 
     @FXML
     private fun deleteStudentButton() {
-        selectedIds.forEach { studentListController.model.delStudent(it) }
+        selectedIds.forEach { model.delStudent(it) }
     }
 
     @FXML
     private fun updateButton() {
-        studentListController.refreshData()
+        refreshData()
     }
 
     @FXML
     private fun prevPage() {
-        studentListController.page--
-        studentListController.refreshData()
+        page--
+        refreshData()
     }
 
     @FXML
     private fun nextPage() {
-        studentListController.page++
-        studentListController.refreshData()
+        page++
+        refreshData()
     }
 }
