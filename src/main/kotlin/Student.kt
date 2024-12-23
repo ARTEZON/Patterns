@@ -110,6 +110,14 @@ class Student(
         else if (email != null) Pair("email", email)
         else null
 
+    override fun equals(other: Any?) =
+        other is Student && surname == other.surname && name == other.name && patronym == other.patronym
+        && phone == other.phone && telegram == other.telegram && email == other.email && git == other.git
+
+    override fun hashCode() =
+        surname.hashCode() + name.hashCode() + patronym.hashCode() +
+        phone.hashCode() + telegram.hashCode() + email.hashCode() + git.hashCode()
+
     override fun toString(): String {
         var str = "[ID $id] $surname $name $patronym"
         if (phone != null) str += "\nНомер телефона: $phone"
