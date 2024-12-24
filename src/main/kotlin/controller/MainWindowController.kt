@@ -12,18 +12,28 @@ import model.StudentShortModel
 import model.TableRow
 import view.MainView
 import view.ViewInterface
+import java.util.logging.*
 
 class MainWindowController : ControllerInterface {
+    private val logger = Logger.getLogger(MainWindowController::class.java.name)
+
+    init {
+        logger.level = Level.ALL  // Level.ALL или Level.SEVERE
+    }
+
     private val view: ViewInterface = MainView(this)
     private val model: ModelInterface = StudentShortModel(listOf(view))
     private var page: Int = 1
     private var pageSize: Int = 15
 
     private fun refreshData() {
+        logger.info("Refreshing data for page $page with page size $pageSize...")
         try {
             model.refreshData(page, pageSize)
+            logger.info("Data refreshed successfully")
         }
         catch (ex: Exception) {
+            logger.severe("Error refreshing data: $ex")
             val errorAlert = Alert(Alert.AlertType.ERROR)
             errorAlert.title = "Ошибка подключения к базе данных"
             errorAlert.headerText = "При подключении к базе данных возникла ошибка:"
@@ -102,6 +112,7 @@ class MainWindowController : ControllerInterface {
 
     @FXML
     private fun initialize() {
+        logger.info("Initializing main window controller...")
         listOf(gitYes, gitNo, gitNotImportant).forEach {it.toggleGroup = gitToggleGroup}
         listOf(emailYes, emailNo, emailNotImportant).forEach {it.toggleGroup = emailToggleGroup}
         listOf(phoneYes, phoneNo, phoneNotImportant).forEach {it.toggleGroup = phoneToggleGroup}
@@ -138,6 +149,8 @@ class MainWindowController : ControllerInterface {
             editBtn.isDisable = selectedIds.size != 1
         }
 
+        logger.info("Main window controller initialized")
+
         refreshData()
     }
 
@@ -158,6 +171,7 @@ class MainWindowController : ControllerInterface {
         emailField.isDisable = true
         phoneField.isDisable = true
         telegramField.isDisable = true
+        logger.info("Filters have been reset")
     }
 
     private fun showForm(fillValues: (FormController) -> Unit, submitAction: (FormController) -> Unit, formTitle: String, errTitle: String, errHeader: String) {
@@ -178,8 +192,10 @@ class MainWindowController : ControllerInterface {
             try {
                 submitAction(formController)
                 formWindowStage.close()
+                logger.info("Form submitted")
             }
             catch (ex: IllegalArgumentException) {
+                logger.severe("Error submitting form: $ex")
                 val errorAlert = Alert(Alert.AlertType.ERROR)
                 errorAlert.title = errTitle
                 errorAlert.headerText = errHeader
@@ -194,6 +210,7 @@ class MainWindowController : ControllerInterface {
 
     @FXML
     private fun addStudentButton() {
+        logger.info("Showing dialog for adding a new student")
         showForm({}, {formController -> model.addStudent(
             formController.surnameField.text,
             formController.nameField.text,
@@ -207,6 +224,7 @@ class MainWindowController : ControllerInterface {
 
     @FXML
     private fun editStudentButton() {
+        logger.info("Showing dialog for editing student with ID ${selectedIds[0]}")
         showForm({
             val studentForEdit = model.getStudentById(selectedIds[0])
             it.surnameField.text = studentForEdit?.surname ?: ""
@@ -231,6 +249,7 @@ class MainWindowController : ControllerInterface {
 
     @FXML
     private fun deleteStudentButton() {
+        logger.info("Deleting students with IDs $selectedIds")
         selectedIds.forEach { model.delStudent(it) }
     }
 
@@ -242,12 +261,14 @@ class MainWindowController : ControllerInterface {
     @FXML
     private fun prevPage() {
         page--
+        logger.info("Navigating to page $page")
         refreshData()
     }
 
     @FXML
     private fun nextPage() {
         page++
+        logger.info("Navigating to page $page")
         refreshData()
     }
 }
