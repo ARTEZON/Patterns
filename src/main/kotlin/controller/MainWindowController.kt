@@ -1,5 +1,7 @@
 package controller
 
+import filter.SearchChoice
+import filter.SearchParam
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
@@ -25,11 +27,19 @@ class MainWindowController : ControllerInterface {
     private val model: ModelInterface = StudentShortModel(listOf(view))
     private var page: Int = 1
     private var pageSize: Int = 15
+    private var searchParam: SearchParam? = null
 
     private fun refreshData() {
         logger.info("Refreshing data for page $page with page size $pageSize...")
         try {
-            model.refreshData(page, pageSize)
+            searchParam = SearchParam(
+                surnameField.text, nameField.text, patronymField.text,
+                getChoice(gitToggleGroup), gitField.text,
+                getChoice(emailToggleGroup), emailField.text,
+                getChoice(phoneToggleGroup), phoneField.text,
+                getChoice(telegramToggleGroup), telegramField.text
+            )
+            model.refreshData(page, pageSize, searchParam)
             logger.info("Data refreshed successfully")
         }
         catch (ex: Exception) {
@@ -40,6 +50,15 @@ class MainWindowController : ControllerInterface {
             errorAlert.contentText = ex.localizedMessage
             errorAlert.showAndWait()
         }
+    }
+
+    private fun getChoice(toggleGroup: ToggleGroup): SearchChoice {
+        when (toggleGroup.toggles.indexOf(toggleGroup.selectedToggle)) {
+            0 -> return SearchChoice.YES
+            1 -> return SearchChoice.NO
+            2 -> return SearchChoice.ANY
+        }
+        return SearchChoice.ANY
     }
 
     private var selectedIds = listOf<Int>()
@@ -171,6 +190,7 @@ class MainWindowController : ControllerInterface {
         emailField.isDisable = true
         phoneField.isDisable = true
         telegramField.isDisable = true
+        refreshData()
         logger.info("Filters have been reset")
     }
 

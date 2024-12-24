@@ -1,3 +1,5 @@
+import filter.SearchParam
+
 class StudentListFileAdapter(private val studentListFileObject: StudentListFile) : StudentListInterface {
     override fun getStudentById(id: Int): Student? {
         return try { studentListFileObject.getStudentById(id) }
@@ -6,6 +8,10 @@ class StudentListFileAdapter(private val studentListFileObject: StudentListFile)
 
     override fun getStudentShortList(k: Int, n: Int) : DataListStudentShort {
         return studentListFileObject.getStudentShortList(k, n)
+    }
+
+    override fun getStudentShortListFiltered(k: Int, n: Int, searchParam: SearchParam?) : DataListStudentShort {
+        return studentListFileObject.getStudentShortListFiltered(k, n, searchParam)
     }
 
     override fun add(student: Student) : Boolean {
